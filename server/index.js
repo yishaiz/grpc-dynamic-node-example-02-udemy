@@ -29,15 +29,20 @@ const greetManyTimes = (call, callback) => {
     console.log({ firstName, firstName2 })
 
     // const lastName = call.request.greeting.last_name
-    const greetManyTimesResponse = new greets.GreetManyTimesResponse()
-    greetManyTimesResponse.setResult(firstName)
 
-    // setup streaming
-    call.write(greetManyTimesResponse)
+    let count = 0, intervalID = setInterval(() => {
+        const greetManyTimesResponse = new greets.GreetManyTimesResponse()
+        greetManyTimesResponse.setResult(firstName)
 
-    call.end() // we have sent all messages
+        // setup streaming
+        call.write(greetManyTimesResponse)
 
-    // callback(null, { result: `Hello ${firstName} ${lastName}` })
+        if (++xount > 9) {
+            clearInterval(intervalID)
+
+            call.end() // we have sent all messages
+        }
+    }, 1000)
 }
 
 const main = () => {
