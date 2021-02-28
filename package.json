@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "grpc": "^1.24.5",
+    "proto-loader": "^0.2.0"
+  }
 }
