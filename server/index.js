@@ -16,12 +16,29 @@ const greetProtoDefinition = protoLoader.loadSync(greetProtoPath, {
 const greetPackageDefinition = grpc.loadPackageDefinition(greetProtoDefinition).greet
 
 const greet = (call, callback) => {
-    const firstNmae = call.request.greeting.first_name
-    const lastNmae = call.request.greeting.last_name
+    const firstName = call.request.greeting.first_name
+    const lastName = call.request.greeting.last_name
 
-    callback(null, { result: `Hello ${firstNmae} ${lastNmae}` })
+    callback(null, { result: `Hello ${firstName} ${lastName}` })
 }
 
+const greetManyTimes = (call, callback) => {
+    const firstName = call.request.getGreeting().getFirstName
+    const firstName2 = call.request.greeting.first_name
+
+    console.log({ firstName, firstName2 })
+
+    // const lastName = call.request.greeting.last_name
+    const greetManyTimesResponse = new greets.GreetManyTimesResponse()
+    greetManyTimesResponse.setResult(firstName)
+
+    // setup streaming
+    call.write(greetManyTimesResponse)
+
+    call.end() // we have sent all messages
+
+    // callback(null, { result: `Hello ${firstName} ${lastName}` })
+}
 
 const main = () => {
     const server = new grpc.Server()
