@@ -15,6 +15,14 @@ const greetProtoDefinition = protoLoader.loadSync(greetProtoPath, {
 
 const greetPackageDefinition = grpc.loadPackageDefinition(greetProtoDefinition).greet
 
+const greet = (call, callback) => {
+    const firstNmae = call.request.greeting.first_name
+    const lastNmae = call.request.greeting.last_name
+
+    callback(null, { result: `Hello ${firstNmae} ${lastNmae}` })
+}
+
+
 const main = () => {
     const server = new grpc.Server()
 
