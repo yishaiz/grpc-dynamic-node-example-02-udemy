@@ -1,5 +1,5 @@
 const path = require('path')
-const protoLoader = require('@grpc/prot-loader')
+const protoLoader = require('@grpc/proto-loader')
 const grpc = require('grpc')
 
 // grpc service definition for greet
